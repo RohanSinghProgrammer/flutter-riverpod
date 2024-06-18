@@ -1,17 +1,13 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:riverpod_files/models/product.dart';
 
-class CartNotifier extends Notifier<Set<Product>> {
+part 'cart_provider.g.dart';
+
+@riverpod
+class CartNotifier extends _$CartNotifier {
   @override
   Set<Product> build() {
-    return const {
-      // initial products in cart
-      Product(
-          id: '2',
-          title: 'Karati Kit',
-          price: 34,
-          image: 'assets/products/karati.png'),
-    };
+    return const {};
   }
 
   // methods to update product
@@ -21,13 +17,9 @@ class CartNotifier extends Notifier<Set<Product>> {
     }
   }
 
-  void removeProduct (Product product){
-    if(state.contains(product)){
+  void removeProduct(Product product) {
+    if (state.contains(product)) {
       state = state.where((element) => element != product).toSet();
     }
   }
 }
-
-final cartNotifierProvider = NotifierProvider<CartNotifier, Set<Product>>(() {
-  return CartNotifier();
-});
